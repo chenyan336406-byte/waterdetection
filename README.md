@@ -2,57 +2,86 @@
 
 基于 React + TypeScript + Vite 开发的水质监测可视化平台。
 
-## 🚀 GitHub Pages 部署
+# React + TypeScript + Vite
 
-### 步骤 1: 创建 GitHub 仓库
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-1. 登录 [GitHub](https://github.com)
-2. 点击右上角 **+** → **New repository**
-3. 填写仓库名称（如 `water-detection`）
-4. 点击 **Create repository**
+Currently, two official plugins are available:
 
-### 步骤 2: 上传代码
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-```bash
-# 在项目目录下执行
-git init
-git remote add origin https://github.com/YOUR_USERNAME/water-detection.git
-git add .
-git commit -m "Initial commit"
-git push -u origin main
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-### 步骤 3: 启用 GitHub Pages
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-1. 进入仓库的 **Settings** → **Pages**
-2. **Build and deployment** → **Source** 选择 "GitHub Actions"
-3. 等待自动部署完成（约 1-2 分钟）
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-### 步骤 4: 访问网站
-
-部署完成后，访问：
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-https://YOUR_USERNAME.github.io/water-detection/
-```
 
-## 🛠️ 本地开发
-
-```bash
-# 安装依赖
-npm install
-
-# 启动开发服务器
-npm run dev
-
-# 构建生产版本
-npm run build
-```
 
 ## 📋 功能模块
 
-- **水质实时查询** - 实时监测 pH值、浊度、余氯等指标
-- **历史记录查看** - 多维度数据查询和对比分析
-- **故障一键上报** - 快速定位、图片上传、进度跟踪
+水质实时查询 实时监测 pH值、浊度、余氯等指标
+历史记录查看 多维度数据查询和对比分析
+故障一键上报 快速定位、图片上传、进度跟踪
 - **安全饮水知识** - 饮水健康知识普及
 - **用水数据统计** - 全面统计用水数据
 - **地图总览** - GIS地图展示监测点分布
